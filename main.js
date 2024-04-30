@@ -206,7 +206,8 @@ function updateSettings() {
 }
 
 function resetSimulation() {
-	boids = [];
+	// clear boids
+	while(boids.length) boids.pop();
 
 	// generate boids with random heading and pos
     for (let i = 0; i < boidNumber; i++) {
@@ -216,14 +217,15 @@ function resetSimulation() {
 
         boids.push(new Boid(x, y, direction));
     }
+
 	
     // if (boids.length > 0) boids[0].isHighlighted = true;
 
-	// set slider to default values
-	visualRangeSlider.value = 120;
-	alignmentFactorSlider.value = 0.02;
-	separationFactorSlider.value = 0.02;
-	cohesionFactorSlider.value = 0.0005;
+	// // set slider to default values
+	// visualRangeSlider.value = 120;
+	// alignmentFactorSlider.value = 0.02;
+	// separationFactorSlider.value = 0.02;
+	// cohesionFactorSlider.value = 0.0005;
     
 }
 
