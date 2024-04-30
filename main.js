@@ -6,6 +6,11 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let boids = [];
+const boidNumber = 200;
+let visualRangeSlider, alignmentFactorSlider, separationFactorSlider, cohesionFactorSlider;
+
+
 class Boid {
 
     static seperateRadius = 20;
@@ -13,7 +18,7 @@ class Boid {
     static visualRange = 120
     static alignmentFactor = 0.02;
     static cohesionFactor = 0.0005;
-    static edgeAvoidance = .4
+    static edgeAvoidance = .45
     static margin = 100;
     static minSpeed = 4;
     static maxSpeed = 6;
@@ -34,7 +39,7 @@ class Boid {
             Math.floor(Math.random() * (190 - 150) + 150),
         ] // some range around (60,227,171)
 
-        this.birdSize = 5;
+        this.birdSize = 6;
         this.beakLength = this.birdSize * 2.5;
         this.beakThickness = this.birdSize / 2;
     }
@@ -193,24 +198,58 @@ function update(boids) {
     }
 }
 
-function main() {
-    
-    addEventListener("click", onClick);
+function updateSettings() {
+    Boid.visualRange = parseInt(visualRangeSlider.value);
+    Boid.alignmentFactor = parseFloat(alignmentFactorSlider.value);
+    Boid.separationFactor = parseFloat(separationFactorSlider.value);
+    Boid.cohesionFactor = parseFloat(cohesionFactorSlider.value);
+}
 
-    let birdNumber = 200;
-    boids = [];
+function resetSimulation() {
+	boids = [];
 
-    // generate 10 boids with random heading and pos
-    for (let i = 0; i < birdNumber; i++) {
+	// generate boids with random heading and pos
+    for (let i = 0; i < boidNumber; i++) {
         x = Math.floor(Math.random() * canvas.width);
         y = Math.floor(Math.random() * canvas.height);
         direction = Math.random() * 2 * Math.PI;
 
         boids.push(new Boid(x, y, direction));
     }
-    if (boids.length > 0) boids[0].isHighlighted = true;
+	
+    // if (boids.length > 0) boids[0].isHighlighted = true;
 
-    setInterval(update, 1000/60, boids);
+	// set slider to default values
+	visualRangeSlider.value = 120;
+	alignmentFactorSlider.value = 0.02;
+	separationFactorSlider.value = 0.02;
+	cohesionFactorSlider.value = 0.0005;
+    
+}
+
+function main() {
+    
+    addEventListener("click", onClick);
+
+	// sliders
+    visualRangeSlider = document.getElementById('visualRange');
+    alignmentFactorSlider = document.getElementById('alignmentFactor');
+    separationFactorSlider = document.getElementById('separationFactor');
+    cohesionFactorSlider = document.getElementById('cohesionFactor');
+    resetButton = document.getElementById('resetButton');
+
+	// event listeners
+	visualRangeSlider.addEventListener('input', updateSettings);
+	alignmentFactorSlider.addEventListener('input', updateSettings);
+	separationFactorSlider.addEventListener('input', updateSettings);
+	cohesionFactorSlider.addEventListener('input', updateSettings);
+	resetButton.addEventListener('click', resetSimulation);
+
+	// initial boids
+	resetSimulation();
+
+	setInterval(update, 1000/60, boids);
+    
 }
 
 main();

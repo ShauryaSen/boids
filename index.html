@@ -8,6 +8,33 @@
 </head>
 <body>
     <canvas id="boidCanvas"></canvas>
+
+    <div class="controlPanel">
+        <button id="resetButton">Reset</button>
+        <div class="sliderContainer">
+            <label for="visualRange">Visual Range</label>
+            <input type="range" id="visualRange" min="50" max="200" value="120"
+                class="slider">
+        </div>
+        <div class="sliderContainer">
+            <label for="alignmentFactor">Alignment Factor</label>
+            <input type="range" id="alignmentFactor" min="0.01" max="0.1" step="0.01" value="0.02"
+                class="slider">
+        </div>
+        <div class="sliderContainer">
+            <label for="separationFactor">Separation Factor</label>
+            <input type="range" id="separationFactor" min="0.01" max="0.1" step="0.01" value="0.02"
+                class="slider">
+        </div>
+        <div class="sliderContainer">
+            <label for="cohesionFactor">Cohesion Factor</label>
+            <input type="range" id="cohesionFactor" min="0.0001" max="0.001" step="0.0001" value="0.0005"
+                class="slider">
+        </div>
+    </div>
+
+
+
     <script src="main.js"></script>
 </body>
 </html>
