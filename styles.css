@@ -1,0 +1,12 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* No scrolling */
+}
+
+canvas {
+    width: 100vw;
+    height: 100vh;
+	background-color: rgb(24,24,24);
+    display: block; /* no margin */
+}
